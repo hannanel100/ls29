@@ -183,20 +183,64 @@ class Reporter {
         console.log(`Display all: ${s.display()}`);
     }
 }
+class Graphics {
+    public static randomNum(min: number, max: number): number {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+    public static randomColor(): string {
+        const colorArray = ['red', 'blue', 'green', 'yellow'];
+        return colorArray[Math.floor(Math.random() * colorArray.length)]
+    }
+    public static showShapes(): void {
+        let shapesArray: Shape[] = [];
+        for (let i = 0; i < 20; i++) {
+            const randNum = this.randomNum(1,3);
+            switch (randNum) {
+                case (1): {
+                    shapesArray.push(new Circle(this.randomNum(1,10), this.randomNum(1,10), this.randomColor(), this.randomNum(1,10)));
+                }
+                case (2): {
+                    shapesArray.push(new Square(this.randomNum(1,10), this.randomNum(1,10), this.randomColor(), this.randomNum(2,10)));
+                }
+                case (3):{
+                    shapesArray.push(new Rectangle(this.randomNum(1,10), this.randomNum(1,10), this.randomColor(), this.randomNum(2,10), this.randomNum(2,10)));
+                }
+            }
+
+        }
+        for(let i = 0; i < shapesArray.length; i++){
+            console.log(`Display all: ${shapesArray[i].display()}`);
+            console.log(`Area: ${shapesArray[i].Area()}`);
+            console.log(`Circumference: ${shapesArray[i].Circumference()}`);
+            if (shapesArray[i] instanceof Square) {
+                console.log((<Square>shapesArray[i]).draw());
+            }
+            else if (shapesArray[i] instanceof Rectangle) {
+                console.log((<Rectangle>shapesArray[i]).draw());
+    
+            }
+            else if (shapesArray[i] instanceof Circle){
+                console.log(`Diameter: ${(<Circle>shapesArray[i]).Diameter()}`);
+            }
+        }
+    }
+
+}
 
 
 function main() {
     // const test1 = new Tester();
     // Tester.test();
-    const c1 = new Circle(3, 2, 'red', 3);
+    // const c1 = new Circle(3, 2, 'red', 3);
 
-    const s1 = new Square(2, 2, 'red', 5);
+    // const s1 = new Square(2, 2, 'red', 5);
 
-    const r1 = new Rectangle(3, 1, 'blue', 3, 5);
+    // const r1 = new Rectangle(3, 1, 'blue', 3, 5);
 
-    let report = new Reporter();
-    report.showReport(c1);
-    report.showReport(s1);
-    report.showReport(r1);
+    // let report = new Reporter();
+    // report.showReport(c1);
+    // report.showReport(s1);
+    // report.showReport(r1);
+    Graphics.showShapes();
 }
 main();

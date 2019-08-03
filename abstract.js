@@ -1,7 +1,10 @@
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -163,15 +166,59 @@ var Reporter = /** @class */ (function () {
     };
     return Reporter;
 }());
+var Graphics = /** @class */ (function () {
+    function Graphics() {
+    }
+    Graphics.randomNum = function (min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    };
+    Graphics.randomColor = function () {
+        var colorArray = ['red', 'blue', 'green', 'yellow'];
+        return colorArray[Math.floor(Math.random() * colorArray.length)];
+    };
+    Graphics.showShapes = function () {
+        var shapesArray = [];
+        for (var i = 0; i < 20; i++) {
+            var randNum = this.randomNum(1, 3);
+            switch (randNum) {
+                case (1): {
+                    shapesArray.push(new Circle(this.randomNum(1, 10), this.randomNum(1, 10), this.randomColor(), this.randomNum(1, 10)));
+                }
+                case (2): {
+                    shapesArray.push(new Square(this.randomNum(1, 10), this.randomNum(1, 10), this.randomColor(), this.randomNum(2, 10)));
+                }
+                case (3): {
+                    shapesArray.push(new Rectangle(this.randomNum(1, 10), this.randomNum(1, 10), this.randomColor(), this.randomNum(2, 10), this.randomNum(2, 10)));
+                }
+            }
+        }
+        for (var i = 0; i < shapesArray.length; i++) {
+            console.log("Display all: " + shapesArray[i].display());
+            console.log("Area: " + shapesArray[i].Area());
+            console.log("Circumference: " + shapesArray[i].Circumference());
+            if (shapesArray[i] instanceof Square) {
+                console.log(shapesArray[i].draw());
+            }
+            else if (shapesArray[i] instanceof Rectangle) {
+                console.log(shapesArray[i].draw());
+            }
+            else if (shapesArray[i] instanceof Circle) {
+                console.log("Diameter: " + shapesArray[i].Diameter());
+            }
+        }
+    };
+    return Graphics;
+}());
 function main() {
     // const test1 = new Tester();
     // Tester.test();
-    var c1 = new Circle(3, 2, 'red', 3);
-    var s1 = new Square(2, 2, 'red', 5);
-    var r1 = new Rectangle(3, 1, 'blue', 3, 5);
-    var report = new Reporter();
-    report.showReport(c1);
-    report.showReport(s1);
-    report.showReport(r1);
+    // const c1 = new Circle(3, 2, 'red', 3);
+    // const s1 = new Square(2, 2, 'red', 5);
+    // const r1 = new Rectangle(3, 1, 'blue', 3, 5);
+    // let report = new Reporter();
+    // report.showReport(c1);
+    // report.showReport(s1);
+    // report.showReport(r1);
+    Graphics.showShapes();
 }
 main();
